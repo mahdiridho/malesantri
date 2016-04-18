@@ -1,0 +1,17 @@
+<header class="bar bar-header" style="background-color: transparent !important;border-bottom-color: transparent !important;">
+	<button class="button button-clear" ng-click="closeQue()"><i class="icon ion-ios-close-empty"></i></button>
+	<h1 class="title">&nbsp;</h1>
+	<button class="button button-clear" ng-click="refreshQue()"><i class="icon ion-refresh calm"></i></a>
+</header>
+<ion-content overflow-scroll="false" style="height:100%;background-color:#444444;padding:20px;padding-top:80px;">
+	<div class="text-center energized" style="font-size: 50px;height:60px;background-color: transparent !important;">{{noQue}}</div>
+	<div class="text-center" style="width: 100%;color: #fff;font-size: 20px;background-color: transparent !important;">
+		<img ng-src="{{picQue}}" width="150px" style="display:block;margin-left:auto;margin-right:auto;"><p></p>
+		<p><b>{{nameQue}}</b> ({{phoneQue}})</p>
+		<ul>
+			<li ng-repeat="o in orderQue">{{o.name}}</li>
+		</ul>
+	</div>
+	<div class="item" style="background-color: transparent !important;border: none !important;">
+	<button ng-style="nextBtn" class="button button-block button-positive button-large" ng-click="nextQ(orderID)"><i class="icon ion-skip-forward"> Next</i></button></div>
+</ion-content>

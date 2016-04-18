@@ -1,0 +1,51 @@
+<ion-view view-title="App Login">
+  <ion-content overflow-scroll="false">
+	<form name="loginForm" novalidate>
+		<div class="list list-inset">
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Email</span>
+				<input type="email" placeholder="Email" name="email" ng-model="user.email" maxlength="50" required>
+			</label>
+			<span style="color:red" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+			<span ng-show="loginForm.email.$error.required">Email is required.</span>
+			<span ng-show="loginForm.email.$error.email">Invalid email address.</span></span>
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Password</span>
+				<input type="password" placeholder="Password" name="password" ng-model="user.password" required>
+			</label>
+			<span style="color:red" ng-show="loginForm.password.$dirty">
+			<span ng-show="loginForm.password.$error.required">Password is required.</span></span>
+			<p class="text-right" style="margin-top: 10px; margin-bottom: 30px;">
+				<a ng-click="forgot()">Forgot password?</a>
+			</p>
+			<a class="button button-balanced button-block" ng-click="login(loginForm.$invalid)"><i class="icon ion-log-in"></i> Next!</a>
+			<a class="button button-dark button-block" ui-sref="app.newuser"><i class="icon ion-plus"></i> New Account</a>
+		</div>
+    </form>
+  </ion-content>
+</ion-view>
+<script id="forgot.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-assertive">
+          <h1 class="title">Reset Password</h1>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+			<form name="fpassword" novalidate>
+			  <div class="list list-inset">
+				  <p>
+					New random password will be sent to your email.
+				  </p>
+				  <div class="list list-inset">
+					  <label class="item item-input">
+						  <input type="email" name="femail" placeholder="Email" ng-model="resetpw.email" required>
+					  </label>
+						<span style="color:#ef473a" ng-show="fpassword.femail.$dirty && fpassword.femail.$invalid">
+						<span ng-show="fpassword.femail.$error.required">Email is required.</span>
+						<span ng-show="fpassword.femail.$error.email">Invalid email address.</span></span>
+				  </div>
+				  <button class="button button-block button-assertive" ng-click="randpw(fpassword.$invalid)"><i class="icon ion-ios-reload"></i> Reset</button>
+			  </div>
+			</form>
+        </ion-content>
+  </div>
+</script>

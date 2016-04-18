@@ -1,0 +1,47 @@
+<ion-view view-title="Gallery Photos">
+<ion-nav-buttons side="right" ng-style="navGallery">
+<a style="font-size:30px;" class="icon ion-plus-circled dark" ng-click="addPhoto()"></a>
+</ion-nav-buttons>
+	<ion-content overflow-scroll="false">
+	<ion-refresher
+		pulling-text="Pull to refresh..."
+		on-refresh="doRefresh()">
+	</ion-refresher>
+		<div class="list card" collection-repeat="photo in photos| limitTo:pageSizeG">
+			<div class="item item-body">
+				<img ng-src="http://malesantri.onfinger.net/{{photo.imageData}}" style="width:100%;">
+				<p>{{photo.caption}}</p>
+				<div class="ion-trash-b stable" style="font-size:50px;position:absolute;right:20px;top:20px;" ng-click="delPic(photo.imageData)"></div>
+			</div>
+		</div>
+		<p>&nbsp;</p>
+		<button class="button button-block button-clear button-positive" ng-click="loadNextPage()" ng-style="loadBtn">Load more</button>
+		<p>&nbsp;</p>
+	</ion-content>
+</ion-view>
+<script id="addPhoto.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">Add Photo</h1>
+		  <button class="button button-clear" ng-click="closeModal()" ng-style="closeButton"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+		  <form name="addphoto" novalidate>
+			  <div class="list list-inset">
+				<p class="label calm">Image file: JPEG only, max. 2MB</p>
+				<div class="item item-image">
+					<img ng-src="{{photoImg}}" style="width:100%;">
+					<span ng-click="setPic()" ng-style='changePic' style='position: absolute; top: 10px; right: 10px; z-index: 20; font-size: 50px;'><a><i class="icon ion-compose"></i></a></span>
+					<span ng-style='loadingPic' style='display: none; position: absolute; top: 10px; right: 10px; z-index: 21;'><img src="img/loading.gif" style="width: 50px;"></span>
+					<span ng-style="uploadAlert" class="item assertive" style="display:none;">Upload Error</span>
+				</div>
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">Photo Title</span>
+					  <input type="text" placeholder="Photo Title" name="title" ng-model="photo.title" maxlength="200">
+				  </label>
+				<button class="button button-block button-balanced" ng-click="savePhoto(photoFile)"><i class="icon ion-checkmark"></i> Save</button>
+			  </div>
+			</form>
+        </ion-content>
+  </div>
+</script>

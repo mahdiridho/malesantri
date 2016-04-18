@@ -1,0 +1,24 @@
+<ion-view view-title="Video Collection">
+<ion-nav-buttons side="right">
+<a style="font-size:30px;" class="icon ion-plus-circled dark" ng-click="addVideo()"></a>
+</ion-nav-buttons>
+<ion-content overflow-scroll="false">
+	<div class="item-input-inset">
+	  <label class="item-input-wrapper">
+		<i class="icon ion-social-youtube placeholder-icon"></i>
+		<input type="search" placeholder="Youtube Video ID" ng-model="url.video" maxlength="20">
+	  </label>
+	  <button class="button button-clear" ng-click="addVideo()">
+		Add
+	  </button>
+	</div>
+	<ion-list class="list card">
+		<ion-item class="item item-body item-icon-right" collection-repeat="video in videos| limitTo:pageSizeV" style="overflow-y: hidden;">
+			<iframe width="80%" ng-src="{{video.urlVideo}}" frameborder="0" allowfullscreen></iframe>
+			<a class="icon ion-trash-b assertive" ng-click="delVideo(video.id)"></a>
+		</ion-item>
+	</ion-list>
+	<button class="button button-block button-clear button-positive" ng-click="loadNextPage()" ng-style="loadBtn">Load more</button>
+	<p>&nbsp;</p>
+ </ion-content>
+</ion-view>

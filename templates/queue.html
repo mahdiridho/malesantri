@@ -1,0 +1,30 @@
+<ion-view view-title="Queue Lists">
+  <ion-content overflow-scroll="false">
+    <ion-list>
+      <ion-item class="item item-thumbnail-left item-icon-right item-remove-animate" collection-repeat="queuelist in queuelists">
+		<img ng-src="{{queuelists[$index]['file']}}">
+        <label class="dark" style="font-size:20px;font-weight:bold;">@{{queuelists[$index]['name']}}</label><br>
+        <label class="balanced">Queue No. : {{queuelists[$index]['queue']}}</label><br>
+        <label class="positive" ng-click="checkmenu($index)">Check menu order</label>
+        <a style="font-size:30px;z-index:101;" class="icon ion-refresh calm" ng-click="refreshIndex($index)"></a>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+<script id="orderMenu.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">My menu order</h1>
+		  <button class="button button-clear" ng-click="closeModal()"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+			<ion-list>
+			  <ion-item class="item item-thumbnail-left item-icon-right item-remove-animate" collection-repeat="orderlist in orderlists">
+				<img ng-src="{{orderlists[$index]['file']}}">
+				<label class="dark" style="font-size:20px;font-weight:bold;">@{{orderlists[$index]['name']}}</label><br>
+				<label class="balanced">Rp {{orderlists[$index]['price']}}</label>
+			  </ion-item>
+			</ion-list>
+        </ion-content>
+  </div>
+</script>

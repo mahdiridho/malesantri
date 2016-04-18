@@ -1,0 +1,91 @@
+<ion-view view-title="Profile">
+<ion-nav-buttons side="left">
+	<button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-style="NavMenu"></button>
+</ion-nav-buttons>
+<ion-content overflow-scroll="false">
+<div class="list card">
+	<div class="item item-image">
+		<img ng-src="{{profile}}">
+		<span ng-click="setPic()" ng-style='changePic' style='position: absolute; top: 10px; right: 10px; z-index: 20; font-size: 50px;'><a><i class="icon ion-compose"></i></a></span>
+		<span ng-style='loadingPic' style='display: none; position: absolute; top: 10px; right: 10px; z-index: 21;'><img src="img/loading.gif" style="width: 50px;"></span>
+		<span ng-style='statusLabel' style='position:absolute;bottom:0;right:0;background-color:#fff;padding:10px;'>{{statusUser}}</span>
+		<span ng-style="uploadAlert" class="item assertive" style="display:none;">Upload Error</span>
+	</div>
+	<p class="item item-icon-left dark"><i class="icon {{type}}"></i>{{name}} (*)</p>
+	<p class="item item-icon-left dark"><i class="icon ion-iphone"></i>{{phone}}</p>
+	<p class="item item-icon-left dark" ng-style="showData"><i class="icon ion-social-whatsapp"></i>{{whatsapp}}</p>
+	<p class="item item-icon-left dark" ng-style="showData"><i class="icon ion-ios-location"></i>{{region}} (*)</p>
+	<p class="item item-icon-left dark" ng-style="showData"><i class="icon ion-navigate"></i>{{useraddress}}</p>
+	<label class="item" ng-style="alert" style="display: none;">{{alertResponse}}</label>
+	<button class="button button-block button-dark" ng-click="editProfile()"><i class="icon ion-edit"></i> Edit Profile</button>
+	<button class="button button-block button-assertive" ng-click="changePassword()"><i class="icon ion-key"></i> Change Password</button>
+</div>
+</ion-content>
+</ion-view>
+<script id="Profile.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">Update Profile</h1>
+		  <button class="button button-clear" ng-click="closeModal()"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+		  <form name="editprofile" novalidate>
+			  <div class="list list-inset">
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">Name *</span>
+					  <input type="text" placeholder="Name" name="name" ng-model="user.name" maxlength="{{maxName}}" required>
+						<span style="color:#ef473a" ng-show="editprofile.name.$dirty">
+						<span ng-show="editprofile.name.$error.required">Name is required.</span></span>
+				  </label>
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">Phone *</span>
+					  <input type="tel" placeholder="Phone" name="phone" ng-model="user.phone" maxlength="20" required>
+						<span style="color:#ef473a" ng-show="editprofile.phone.$dirty">
+						<span ng-show="editprofile.phone.$error.required">Phone is required.</span></span>
+				  </label>
+				  <label class="item item-input item-floating-label" ng-style="WAUser">
+					  <span class="input-label">Whatsapp</span>
+					  <input type="tel" placeholder="Whatsapp" name="whatsapp" ng-model="user.whatsapp" maxlength="20">
+				  </label>
+				  <label class="item item-input item-select" ng-style="RegionUser">
+					<div class="input-label">
+					  Region *
+					</div>
+					<select name="region" ng-model="user.region" ng-options="region.name for region in regions track by region.code">
+					  <option value="" selected hidden />
+					</select>
+				  </label>
+				  <label class="item item-input item-floating-label" ng-style="AddressUser">
+					  <span class="input-label">Full Address *</span>
+					  <input type="text" placeholder="Full Address" name="fulladdress" ng-model="user.address" maxlength="50" {{address}}>
+						<span style="color:#ef473a" ng-show="editprofile.fulladdress.$dirty">
+						<span ng-show="editprofile.fulladdress.$error.required">Full address is required.</span></span>
+				  </label>
+				<label class="item" ng-style="alert" style="display: none;color: #ef473a;">{{alertResponse}}</label>
+				<button class="button button-block button-balanced" ng-click="updateProfile(editprofile.$invalid)"><i class="icon ion-checkmark"></i> Update</button></form>
+			  </div>
+        </ion-content>
+  </div>
+</script>
+<script id="Password.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-assertive">
+          <h1 class="title">Change Password</h1>
+		  <button class="button button-clear" ng-click="closeModal()"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+		  <form name="cpassword" novalidate>
+			  <div class="list list-inset">
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">New Password</span>
+					  <input type="password" placeholder="New Password" name="password" ng-model="user.password" maxlength="10" required>
+						<span style="color:#ef473a" ng-show="cpassword.password.$dirty">
+						<span ng-show="cpassword.password.$error.required">Password is required.</span></span>
+				  </label>
+				<label class="item" ng-style="alertp" style="display: none;">{{alertPassword}}</label>
+				<button class="button button-block button-balanced" ng-click="updatePassword(cpassword.$invalid)"><i class="icon ion-checkmark"></i> Change</button>
+			  </div>
+		  </form>
+        </ion-content>
+  </div>
+</script>

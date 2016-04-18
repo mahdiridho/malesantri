@@ -1,0 +1,79 @@
+<ion-view view-title="Menu Lists">
+<ion-nav-buttons side="right">
+<a style="font-size:30px;" class="icon ion-plus-circled dark" ng-click="addMenu()"></a>
+</ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+	<ion-refresher
+		pulling-text="Pull to refresh..."
+		on-refresh="doRefresh()">
+	</ion-refresher>
+    <ion-list>
+      <ion-item class="item item-thumbnail-left" collection-repeat="menulist in menulists| limitTo:pageSizeM">
+		<img ng-src="{{menulist.file}}">
+        <a href="#/app/menuResto/{{menulist.stockID}}/{{menulist.title}}/{{menulist.price}}"><h2>{{menulist.title}}</h2></a>
+        <p>Rp {{menulist.price}} <span class="label {{textClass[$index]}}" ng-bind-html="stockBind[$index]"></span></p>
+        <a style="font-size:30px;text-decoration:none;" class="icon ion-eye balanced" href="#/app/menuResto/{{menulist.stockID}}/{{menulist.title}}/{{menulist.price}}"> </a>
+        <a style="font-size:30px;" class="icon ion-trash-b assertive" ng-click="delMenu(menulist.stockID,menulist.title,menulist.folder)"></a>
+		<div ng-style="cover[$index]" style="position:absolute;z-index:100;width:100%;height:100%;left:0;top:0;background-color:#fff;opacity:0.5;"></div>
+		<div style="position:absolute;z-index:101;right:10px;top:30%;">
+		<label class="toggle toggle-calm">
+			<input type="checkbox" ng-click="stockChange($index,menulist.stockID)" ng-checked="stock[$index]">
+			<div class="track">
+				<div class="handle"></div>
+			</div>
+		</label>
+		</div>
+      </ion-item>
+    </ion-list>
+	<button class="button button-block button-clear button-positive" ng-click="loadNextPage()" ng-style="loadBtn">Load more</button>
+	<p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+<script id="AddMenu.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">Add Menu</h1>
+		  <button class="button button-clear" ng-click="closeModal()" ng-style="closeButton"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+		  <form name="addmenu" novalidate>
+			  <div class="list list-inset">
+				<p class="label calm">Image file: JPEG only, max. 2MB</p>
+				<div class="row item">
+				 <div class="col item item-thumbnail-left" style="border: none;">
+					<img ng-src="{{menuImg1}}">
+					<span ng-click="delPic(1)" ng-style='delPic1' style='display: none; position: absolute; top: 10px; left: 10px; z-index: 20; font-size: 30px;'><a><i class="icon ion-minus-circled"></i></a></span>
+					<span ng-click="setPic(1)" ng-style='changePic1' style='position: absolute; top: 10px; left: 10px; z-index: 21; font-size: 30px;'><a><i class="icon ion-compose"></i></a></span>
+					<span ng-style='loadingPic1' style='display: none; position: absolute; top: 35px; left: 35px; z-index: 21;'><img src="img/loading.gif" style="width: 30px;"></span>
+				 </div>
+				 <div class="col item item-thumbnail-left" style="border: none;">
+					<img ng-src="{{menuImg2}}">
+					<span ng-click="delPic(2)" ng-style='delPic2' style='display: none; position: absolute; top: 10px; left: 10px; z-index: 20; font-size: 30px;'><a><i class="icon ion-minus-circled"></i></a></span>
+					<span ng-click="setPic(2)" ng-style='changePic2' style='position: absolute; top: 10px; left: 10px; z-index: 21; font-size: 30px;'><a><i class="icon ion-compose"></i></a></span>
+					<span ng-style='loadingPic2' style='display: none; position: absolute; top: 35px; left: 35px; z-index: 21;'><img src="img/loading.gif" style="width: 30px;"></span>
+				 </div>
+				 <div class="col item item-thumbnail-left" style="border: none;">
+					<img ng-src="{{menuImg3}}">
+					<span ng-click="delPic(3)" ng-style='delPic3' style='display: none; position: absolute; top: 10px; left: 10px; z-index: 20; font-size: 30px;'><a><i class="icon ion-minus-circled"></i></a></span>
+					<span ng-click="setPic(3)" ng-style='changePic3' style='position: absolute; top: 10px; left: 10px; z-index: 21; font-size: 30px;'><a><i class="icon ion-compose"></i></a></span>
+					<span ng-style='loadingPic3' style='display: none; position: absolute; top: 35px; left: 35px; z-index: 21;'><img src="img/loading.gif" style="width: 30px;"></span>
+				 </div>
+				</div>
+				<span ng-style="uploadAlert" class="item assertive" style="display:none;">Upload Error</span>
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">Menu Title *</span>
+					  <input type="text" placeholder="Menu Title" name="title" ng-model="menu.title" maxlength="50" required>
+						<span style="color:#ef473a" ng-show="addmenu.title.$dirty">
+						<span ng-show="addmenu.title.$error.required">Title is required.</span></span>
+				  </label>
+				  <label class="item item-input item-floating-label">
+					  <span class="input-label">Prices</span>
+					  <input type="number" placeholder="Prices" name="price" ng-model="menu.price">
+				  </label>
+				<label class="item" ng-style="alertMenu" style="display: none;color: #ef473a;">{{alertResponse}}</label>
+				<button class="button button-block button-balanced" ng-click="saveMenu(addmenu.$invalid)"><i class="icon ion-checkmark"></i> Save</button>
+			  </div>
+			</form>
+        </ion-content>
+  </div>
+</script>

@@ -1,0 +1,74 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-energized">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content overflow-scroll="false">
+	<div class="sideheader">
+		<img ng-src="img/side.png">
+	</div>
+      <ion-list>
+        <div menu-close class="item item-icon-left" ng-style="itemMenu1" ui-sref="app.login">
+			<i class="icon ion-log-in"></i> 
+			Login
+        </div>
+        <div menu-close class="item item-icon-left energized" ng-style="itemMenu9" ui-sref="openResto">
+			<i class="icon ion-arrow-shrink"></i> 
+			Open The Queue
+		</div>
+        <div menu-close class="item item-icon-left balanced" ng-style="itemMenu2" ui-sref="app.profile">
+			<i class="icon ion-settings"></i> 
+			Settings
+        </div>
+        <div menu-close class="item item-icon-left calm" ng-style="itemMenu3" ui-sref="app.menuResto">
+			<i class="icon ion-grid"></i> 
+			Menu
+        </div>
+        <div menu-close class="item item-icon-left positive" ng-style="itemMenu4" ui-sref="app.gallery">
+			<i class="icon ion-images"></i> 
+			Gallery
+        </div>
+        <div menu-close class="item item-icon-left royal" ng-style="itemMenu5" ui-sref="app.video">
+			<i class="icon ion-ios-videocam"></i> 
+			Video
+        </div>
+        <div menu-close class="item item-icon-left" ng-style="itemMenu8" ui-sref="app.queue">
+			<i class="icon ion-arrow-shrink"></i> 
+			My Queue List
+        </div>
+        <div class="list list-inset" ng-style="itemMenu6">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" placeholder="Search" ng-model="item.search">
+			</label>
+			<label class="item item-input item-select">
+				<div class="input-label">
+					Region
+				</div>
+				<select name="region" ng-model="item.region" ng-options="region.name for region in regions track by region.code">
+				  <option value="" selected hidden />
+				</select>
+			</label>
+			<a class="button button-dark button-block button-small" ng-click="browse()">Browse!</a>
+		</div>
+        <div menu-close class="item item-icon-left dark" ng-style="itemMenu10" ui-sref="app.about">
+			<i class="icon ion-help-buoy"></i> 
+			About
+        </div>
+        <div menu-close class="item item-icon-left assertive" ng-style="itemMenu7" ng-click="logout()">
+			<i class="icon ion-log-out"></i> 
+			Logout
+        </div>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

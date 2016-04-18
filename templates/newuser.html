@@ -1,0 +1,26 @@
+<ion-view view-title="New User">
+  <ion-content class="padding" overflow-scroll="false">
+	<form name="register" novalidate>
+      <div ng-style="formUser" class="list list-inset">
+          <label class="item item-input">
+              <input type="email" placeholder="Email" name="email" ng-model="user.email" maxlength="50" required>
+          </label>
+			<span style="color:red" ng-show="register.email.$dirty && register.email.$invalid">
+			<span ng-show="register.email.$error.required">Email is required.</span>
+			<span ng-show="register.email.$error.email">Invalid email address.</span></span>
+		  <label class="item">
+			<div class="input-label">
+			  Register as 
+			</div>
+			  <ion-radio ng-repeat="type in typeUser" ng-value="type.value" ng-model="user.type" ng-change="typeChange(type.value)"> {{ type.value }}</ion-radio>
+		  </label>
+		  <label class="item" ng-style="alert" style="display: none;">{{alertResponse}}</label>
+		  <button class="button button-block button-dark" ng-click="send(register.$invalid)"><i class="icon ion-upload"></i> Send!</button>
+      </div>
+      <div ng-style="finalUser">
+		  <label style="color:#33cd5f;">User has been created, please check your inbox/spam to get the user password!</label>
+		  <button class="button button-block button-balanced" ng-click="loginPage()"><i class="icon ion-log-in"></i> User Login</button>
+	  </div>
+	</form>
+  </ion-content>
+</ion-view>

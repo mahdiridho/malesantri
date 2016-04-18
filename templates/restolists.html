@@ -1,0 +1,134 @@
+<ion-view view-title="Resto Lists">
+  <ion-content overflow-scroll="false">
+	<ion-refresher
+		pulling-text="Pull to refresh..."
+		on-refresh="doRefresh()">
+	</ion-refresher>
+    <ion-list>
+      <ion-item class="item item-thumbnail-left item-icon-right" collection-repeat="restolist in restolists| limitTo:pageSizeR">
+		<img ng-src="{{restolists[$index]['file']}}">
+        <label class="dark" style="font-size:20px;font-weight:bold;">{{restolists[$index]['name']}}</label><br>
+        <label class="balanced">{{restolists[$index]['Tregion']}}</label><br>
+        <label class="balanced">{{restolists[$index]['queue']}} queues <span style="color:red">{{off[$index]}}</span></label>
+        <a style="font-size:30px;z-index:101;" class="icon ion-refresh calm" ng-click="refreshIndex($index,restolist['id'])"></a>
+		<div ng-click="detailResto($index)" style="position:absolute;width:100%;height:100%;left:0;top:0;background-color:transparent;"></div>
+      </ion-item>
+    </ion-list>
+	<button class="button button-block button-clear button-positive" ng-click="loadNextPage()" ng-style="loadBtn">Load more</button>
+	<p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+<script id="restoID.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">{{title}} {{isclose}}</h1>
+		  <button class="button button-clear" ng-click="closeModal(1)"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+			<div class="list card">
+				<div class="item item-body">
+					<img class="full-image" ng-src="{{photo}}">
+				</div>
+				<div class="item item-icon-left">
+					<i class="icon ion-iphone"></i> {{phone}}
+				</div>
+				<div class="item item-icon-left">
+					<i class="icon ion-social-whatsapp"></i> {{whatsapp}}
+				</div>
+				<div class="item item-icon-left">
+					<i class="icon ion-location"></i> {{fulladdress}} - {{states}}
+				</div>
+				<div class="button-bar">
+					<a class="button button-large button-clear button-assertive ion-images" ng-click="openGallery()"> Gallery</a>
+					<a class="button button-large button-clear button-energized ion-social-youtube" ng-click="openVideo()"> Video</a>
+					<a class="button button-large button-clear button-balanced ion-arrow-shrink {{isdisabled}}" ng-click="order()"> Queue</a>
+				</div>
+			</div>
+        </ion-content>
+  </div>
+</script>
+<script id="one.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">{{title}}'s Menu List</h1>
+		  <button class="button button-balanced" ng-click="orderNow()"><i class="icon ion-android-cart"></i></button>
+		  <button class="button button-clear" ng-click="closeModal(2)"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+			<ion-list>
+			  <ion-item class="item item-thumbnail-left item-icon-right item-remove-animate" collection-repeat="restomenu in restomenus">
+				<img ng-src="{{restomenus[$index]['files'][0]}}">
+				<label class="dark" style="font-size:20px;font-weight:bold;">{{restomenus[$index]['name']}}</label><br>
+				<label class="balanced">Rp {{restomenus[$index]['price']}}</label>
+				<a style="font-size:30px;z-index:101;" class="icon {{restomenus[$index]['filled']}} calm" ng-click="pickMenu($index,restomenus[$index]['id'])"></a>
+				<div ng-click="detailMenu($index)" style="position:absolute;width:100%;height:100%;left:0;top:0;background-color:transparent;"></div>
+			  </ion-item>
+			</ion-list>
+        </ion-content>
+  </div>
+</script>
+<script id="two.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header bar-dark">
+          <h1 class="title">{{indexTitle}}</h1>
+		  <button class="button button-clear" ng-click="closeModal(5)"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+        <ion-content class="has-header" overflow-scroll="false">
+			<div class="list card">
+				<div class="item item-body">
+					<ion-slide-box>
+						<ion-slide ng-repeat="picMenu in menufiles track by $index" repeat-done='repeatDone()'>
+						<img ng-src="{{picMenu}}" style="width:100%;margin:auto;display:block" >
+						</ion-slide>
+					</ion-slide-box>
+					<p>{{indexDescription}}</p>
+				</div>
+			</div>
+        </ion-content>
+  </div>
+</script>
+<script id="galleryID.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header" style="background-color: transparent !important;border-bottom-color: transparent !important;">
+          <h1 class="title"></h1>
+		  <button class="button button-clear" ng-click="closeModal(3)"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+		<ion-content overflow-scroll="false">
+			<ion-refresher
+				pulling-text="Pull to refresh..."
+				on-refresh="refreshG()">
+			</ion-refresher>
+			<div class="list" collection-repeat="photo in photos| limitTo:pageG">
+				<div class="item">
+					<img ng-src="http://malesantri.onfinger.net/{{photo.imageData}}" style="width:90%;">
+					<p>{{photo.caption}}</p>
+				</div>
+			</div>
+			<p>&nbsp;</p>
+			<button class="button button-block button-clear button-positive" ng-click="nextGallery()" ng-style="loadG">Load more</button>
+			<p>&nbsp;</p>
+		</ion-content>
+  </div>
+</script>
+<script id="videoID.html" type="text/ng-template">
+	<div class="modal">
+		<header class="bar bar-header" style="background-color: transparent !important;border-bottom-color: transparent !important;">
+          <h1 class="title"></h1>
+		  <button class="button button-clear" ng-click="closeModal(4)"><i class="icon ion-ios-close-empty"></i></button>
+        </header>
+		<ion-content overflow-scroll="false">
+			<ion-refresher
+				pulling-text="Pull to refresh..."
+				on-refresh="refreshG()">
+			</ion-refresher>
+			<div class="list" collection-repeat="video in videos| limitTo:pageV">
+				<div class="item">
+					<iframe width="90%" ng-src="{{video.urlVideo}}" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+			<p>&nbsp;</p>
+			<button class="button button-block button-clear button-positive" ng-click="nextVideo()" ng-style="loadV">Load more</button>
+			<p>&nbsp;</p>
+		</ion-content>
+  </div>
+</script>
