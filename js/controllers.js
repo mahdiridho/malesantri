@@ -1,5 +1,5 @@
 var regions = [
-	{'code':'AC','name':'Aceh'},
+	{'code':'AC','name':'Aceh Darussalam'},
 	{'code':'SMU','name':'Sumatra Utara'},
 	{'code':'SMB','name':'Sumatra Barat'},
 	{'code':'RI','name':'Riau'},
